@@ -9,3 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (username, password, status) VALUES ('John', 'f8IhYM7cUyXecSHAodQOqzqH7', 'First Alpha tester!');
+INSERT INTO users (username, password, status) VALUES ('Alice', 'a8JkLm9Op0QrSt', 'Alpha tester');
+INSERT INTO users (username, password, status) VALUES ('Bob', 'b2HnMk8Pq4SvZx', 'Alpha tester');
+INSERT INTO users (username, password, status) VALUES ('Charlie', 'c3FoGt5Hy6JuKl', 'Alpha tester');
+INSERT INTO users (username, password, status) VALUES ('Diana', 'd4IpLo9Zu7XwCy', 'Alpha tester');
