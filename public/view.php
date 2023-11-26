@@ -1,4 +1,6 @@
 <?php
+include_once("../templates/header.php");
+
 // Simple path traversal vulnerability example
 
 $fileContent = '';

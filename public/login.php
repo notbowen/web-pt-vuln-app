@@ -1,4 +1,5 @@
 <?php
+include_once("../templates/header.php");
 include_once("../config/db.php"); // Include the database connection
 
 $loggedInUser = null;
