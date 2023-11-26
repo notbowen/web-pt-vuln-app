@@ -1,5 +1,7 @@
 <?php
+session_start();
 include_once("../templates/header.php");
+include_once("../templates/navbar.php");
 
 // Simple path traversal vulnerability example
 

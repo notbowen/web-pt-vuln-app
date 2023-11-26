@@ -1,5 +1,5 @@
 <?php
-include_once("../templates/header.php");
+session_start();
 include_once("../config/db.php"); // Include the database connection
 
 $loggedInUser = null;
@@ -23,16 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         // Login successful
-        $loggedInUser = $result->fetch_assoc();
-        echo "Logged in successfully as " . htmlspecialchars($loggedInUser['username']);
+        $_SESSION['username'] = $username;
+        header("Location: users.php");
+        exit();
     } else {
-        echo "Invalid username or password";
+        $loginError = "Invalid username or password";
     }
 
     $stmt->close();
 }
 
 $conn->close();
+include_once("../templates/header.php");
+include_once("../templates/navbar.php");
 ?>
 
 <!DOCTYPE html>
@@ -47,5 +50,11 @@ $conn->close();
         Password: <input type="password" name="password"><br>
         <input type="submit" value="Login">
     </form>
+
+    <?php
+    if (isset($loginError)) {
+        echo "<p style='color:red;'>" . htmlspecialchars($loginError) . "</p>";
+    }
+    ?>
 </body>
 </html>
