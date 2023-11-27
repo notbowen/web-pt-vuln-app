@@ -2,6 +2,12 @@
 session_start();
 include_once("../config/db.php"); // Include the database connection
 
+// Check if user is logged in and redirect to users.php
+if (isset($_SESSION['username'])) {
+    header("Location: users.php");
+    exit();
+}
+
 $loggedInUser = null;
 
 // Check if the form is submitted
