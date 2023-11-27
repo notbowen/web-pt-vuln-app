@@ -52,6 +52,7 @@ $conn->close();
     </form>
 
     <!-- Display the card content or a 'no results' message -->
+    <!-- TODO: Add animation when a new card appears --> 
     <div class="card-container">
         <?php
         if ($isResultEmpty) {
