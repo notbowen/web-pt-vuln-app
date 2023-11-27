@@ -32,6 +32,7 @@ $loggedIn = isset($_SESSION['username']);
         <?php
         if ($loggedIn) {
             echo '<a href="#">' . htmlspecialchars($_SESSION['username']) . '</a>';
+            echo '<a href="logout.php">Logout</a>';
         } else {
             echo '<a href="login.php">Login</a>';
         }
