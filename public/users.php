@@ -41,6 +41,7 @@ $conn->close();
     <title>Users</title>
 </head>
 <body>
+    <?php include_once("../templates/header.php"); ?>
     <?php include_once("../templates/navbar.php"); ?>
 
     <h2>Users</h2>
