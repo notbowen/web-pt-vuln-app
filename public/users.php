@@ -2,8 +2,8 @@
 session_start();
 include_once("../config/db.php");
 
-// Initialize a variable to store the table content
-$tableContent = '';
+// Initialize a variable to store the card content
+$cardContent = '';
 $isResultEmpty = true;
 
 // Define the query to fetch all users and an additional query for search
@@ -13,23 +13,24 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
     $sql = "SELECT username, status FROM users WHERE username LIKE '%$searchTerm%';";
 }
 
-// Execute multi query and prepare the table content
+// Execute multi query and prepare the card content
 if ($conn->multi_query($sql)) {
     do {
         if ($result = $conn->store_result()) {
             if ($result->num_rows > 0) {
                 $isResultEmpty = false;
-                $tableContent .= "<table border='1'><tr><th>Username</th><th>Status</th></tr>";
                 while ($row = $result->fetch_assoc()) {
-                    $tableContent .= "<tr><td>" . htmlspecialchars($row["username"]) . "</td><td>" . htmlspecialchars($row["status"]) . "</td></tr>";
+                    $cardContent .= "<div class='card'>";
+                    $cardContent .= "<h3>" . htmlspecialchars($row["username"]) . "</h3>";
+                    $cardContent .= "<p>" . htmlspecialchars($row["status"]) . "</p>";
+                    $cardContent .= "</div>";
                 }
-                $tableContent .= "</table>";
             }
             $result->free();
         }
     } while ($conn->more_results() && $conn->next_result());
 } else {
-    $tableContent = "<p>Error executing query: " . $conn->error . "</p>";
+    $cardContent = "<p>Error executing query: " . $conn->error . "</p>";
 }
 
 $conn->close();
@@ -50,13 +51,15 @@ $conn->close();
         <input type="submit" value="Search">
     </form>
 
-    <!-- Display the table content or a 'no results' message -->
-    <?php
-    if ($isResultEmpty) {
-        echo "<p>No users found.</p>";
-    } else {
-        echo "<br>" . $tableContent;
-    }
-    ?>
+    <!-- Display the card content or a 'no results' message -->
+    <div class="card-container">
+        <?php
+        if ($isResultEmpty) {
+            echo "<p>No users found.</p>";
+        } else {
+            echo $cardContent;
+        }
+        ?>
+    </div>
 </body>
 </html>

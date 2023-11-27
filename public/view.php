@@ -25,6 +25,7 @@ if (isset($_GET['file'])) {
 <head>
     <title>View File</title>
 </head>
+
 <body>
     <h2>View File</h2>
     <form method="get">
@@ -32,7 +33,13 @@ if (isset($_GET['file'])) {
         <input type="submit" value="View File">
     </form>
 
-    <h3>File Content:</h3>
-    <pre><?php echo htmlspecialchars($fileContent); ?></pre>
+    <!-- Echo if fileContent is not empty -->
+    <?php if ($fileContent != '') {
+        echo '<h3>File Content:</h3>';
+        echo '<div class="text-editor">';
+        echo htmlspecialchars($fileContent);
+        echo '</div>';
+    }
+    ?>
 </body>
 </html>
