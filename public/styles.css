@@ -104,7 +104,7 @@ tr:nth-child(even) {
     justify-content: center;
     padding: 20px;
     width: 50%;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .card {
