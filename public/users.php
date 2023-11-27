@@ -45,7 +45,7 @@ $conn->close();
     <?php include_once("../templates/header.php"); ?>
     <?php include_once("../templates/navbar.php"); ?>
 
-    <h2>Users</h2>
+    <h2>Invited Users</h2>
     <form method="get">
         <input type="text" name="search" placeholder="Enter username" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
         <input type="submit" value="Search">
