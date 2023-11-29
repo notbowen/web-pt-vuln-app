@@ -38,9 +38,11 @@ $conn->close();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Users</title>
 </head>
+
 <body>
     <?php include_once("../templates/header.php"); ?>
     <?php include_once("../templates/navbar.php"); ?>
@@ -52,7 +54,7 @@ $conn->close();
     </form>
 
     <!-- Display the card content or a 'no results' message -->
-    <!-- TODO: Add animation when a new card appears --> 
+    <!-- TODO: Add animation when a new card appears -->
     <div class="card-container">
         <?php
         if ($isResultEmpty) {
@@ -62,5 +64,40 @@ $conn->close();
         }
         ?>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script>
+        let lastEntryId = null; // You need to initialize this with the ID of the last loaded entry
+        let cardContainer = document.querySelector('.card-container');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(checkForNewEntries, 1000); // Check every 1 second
+
+            function checkForNewEntries() {
+                fetch('check.php')
+                    .then(response => response.json())
+                    .then(entry => {
+                        if (lastEntryId === null) {
+                            lastEntryId = entry.id;
+                            return;
+                        }
+
+                        if (entry.id > lastEntryId) {
+                            addNewCard(entry);
+                            lastEntryId = entry.id;
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function addNewCard(entry) {
+                const card = document.createElement('div');
+                card.className = 'card new-card-animation';
+                card.innerHTML += `<h3>${entry.username}</h3><p>${entry.status}</p>`;
+                cardContainer.append(card);
+            }
+        });
+    </script>
 </body>
+
 </html>
