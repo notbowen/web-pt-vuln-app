@@ -7,10 +7,10 @@ $cardContent = '';
 $isResultEmpty = true;
 
 // Define the query to fetch all users and an additional query for search
-$sql = "SELECT username, status FROM users;";
+$sql = "SELECT username, status FROM users ORDER BY id DESC;";
 if (isset($_GET['search']) && $_GET['search'] != '') {
     $searchTerm = $_GET['search'];
-    $sql = "SELECT username, status FROM users WHERE username LIKE '%$searchTerm%';";
+    $sql = "SELECT username, status FROM users WHERE username LIKE '%$searchTerm%' ORDER BY id DESC;";
 }
 
 // Execute multi query and prepare the card content
@@ -65,8 +65,9 @@ $conn->close();
         ?>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script>
+    <?php 
+if (!isset($_GET['search'])) {
+    echo "<script>
         let lastEntryId = null; // You need to initialize this with the ID of the last loaded entry
         let cardContainer = document.querySelector('.card-container');
 
@@ -93,11 +94,12 @@ $conn->close();
             function addNewCard(entry) {
                 const card = document.createElement('div');
                 card.className = 'card new-card-animation';
-                card.innerHTML += `<h3>${entry.username}</h3><p>${entry.status}</p>`;
-                cardContainer.append(card);
+                card.innerHTML += '<h3>' + entry.username + '</h3><p>' + entry.status + '</p>';
+                cardContainer.prepend(card);
             }
         });
-    </script>
+    </script>";
+}
+?>
 </body>
-
 </html>
